@@ -47,7 +47,7 @@ def sell_beverage():
             beverage = get_attr_Bevb("name", guess) # lookfor entry with expresso
             price = beverage["price"]
             print("Received: ", payment, "Price:", price) # get its price
-            if payment >= price:
+            if payment >= price and beverage != None:
                 # check whether we have in stock materials to make beverage
                 if stock["water"] >= beverage["water"] and stock["coffee"] >= beverage["coffee"] and stock["milk"] >= beverage["milk"]:
                     # discount all stock and add money to  stock
