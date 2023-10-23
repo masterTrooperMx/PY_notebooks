@@ -35,9 +35,19 @@ class MachineCoffee :
         ]
         # history
         self.history = []
-    # it prepares drinks
-    def prepare_drink(self):
-        pass
+
+    def get_attr_Bevb(self, attr, val):
+        return next((drink for drink in self.recipes if drink[attr] == val), None) # builtin iterator function
+
+    # it prepares drinks, beverage is an object
+    def prepare_drink(self, beverage):
+        if self.stock["water"] >= beverage["water"] and self.stock["coffee"] >= beverage["coffee"] and self.stock["milk"] >= beverage["milk"]:
+            # discount all stock and add money to  stock
+            self.stock["water"] -= beverage["water"]
+            self.stock["coffee"] -= beverage["coffee"]
+            self.stock["milk"] -= beverage["milk"]
+            self.stock["money"] += beverage["price"]
+    
     # it searches for recipes to prepare drinks
     def report(self):
         ingredients = []
