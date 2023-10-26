@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor user
+actor coffee_machine
+rectangle vendor_machine {
+	user --> (look for beverage option)
+	user --> (get change)
+	user --> (deliver beverage)
+	(look for beverage option) <-- coffee_machine
+	(get change) <-- coffee_machine
+	(deliver beverage) <-- coffee_machine
+
+}
+@enduml
