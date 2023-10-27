@@ -7,6 +7,8 @@ class QuizBrain:
     def __init__(self, q_list) -> None:
         self.number = 0
         self.question_list = q_list
+        self.score = 0
+        self.total = 0
 
     def set_number(self, num):
         self.number = num
@@ -20,4 +22,9 @@ class QuizBrain:
         check = False
         if question.answer == res:
             check = True
+            self.score += 1
+        self.total += 1
         return check
+    
+    def print_score(self):
+        print(f"Score: {self.score}/{self.total}")
