@@ -20,7 +20,8 @@ timmy_the_turtle.home()
 timmy_the_turtle.pen(pensize=10)
 timmy_the_turtle.speed('fastest')
 
-for i in range(round(xmax/long)*27):
+# https://stackoverflow.com/questions/5893163/what-is-the-purpose-of-the-single-underscore-variable-in-python
+for _ in range(round(xmax/long)*27):
     if(timmy_the_turtle.xcor() > xmax):
         timmy_the_turtle.goto([0.0, timmy_the_turtle.ycor()+long])
     timmy_the_turtle.pencolor(randint(0, 255), randint(0, 255), randint(0, 255))
