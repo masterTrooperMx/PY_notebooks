@@ -1,4 +1,3 @@
-
 # according to https://realpython.com/python-application-layouts/
 import sys
 # adding path

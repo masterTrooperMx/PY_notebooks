@@ -11,3 +11,4 @@ def ttt_setup():
     timmy_the_turtle.shape("classic")
     timmy_the_turtle.color("red")
     timmy_the_turtle.home()
+    timmy_the_turtle.pendown()
