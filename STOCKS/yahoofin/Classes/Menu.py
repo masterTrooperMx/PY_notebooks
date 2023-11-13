@@ -15,6 +15,10 @@ class Menu():
     def display_symbols(self):
         print(portfolio.get_symbols())
 
+    def do_analysis(self):
+        # working with df in order to have info 
+        pass
+
     def do_menu(self):
         follow_compute = True
         while follow_compute:
@@ -25,4 +29,6 @@ class Menu():
                     follow_compute = False
                 if choice == "symbols":
                     self.display_symbols()
+                if choice == "analysis":
+                    self.do_analysis()
     
