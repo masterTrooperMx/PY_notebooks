@@ -7,7 +7,7 @@ RIGHT = 0
 LEFT  = 180
 # constants of distance
 NEAR  = 18
-COLLIDE = 10
+COLLIDE = 1
 # world constants
 WORLD_WITH   = 600
 WORLD_HEIGHT = 600

@@ -23,6 +23,7 @@ while snake.keep_running:
     snake.screen.update()
     
     time.sleep(0.1)
+    # move little snake
     for t in reversed(snake.arr_turtles):
         ind = snake.arr_turtles.index(t)
         timmy = t
@@ -46,16 +47,18 @@ while snake.keep_running:
                 score.writeGameOver()
                 snake.keep_running = False
                 break
-            # if snake bites its own tail
-            for part in snake.arr_turtles:
-                if part.pos() == timmy.pos():
-                    print(f"{part.pos()}, {timmy.pos()}")
-                    pass
-                #elif timmy.distance(part) < COLLIDE:
-                else:
-                    print(f"{timmy.distance(part)}")
-                    #score.writeGameOver()
-                    #snake.keep_running = False
-                    #break
+    # if snake bites its own tail
+    for part in snake.arr_turtles[1:]:
+        #if part.pos() == snake.head.pos():
+        #if part == snake.head:
+            #print(f"{part.pos()}, {snake.head.pos()}")
+        #    pass
+        #elif snake.head.distance(part) < COLLIDE:
+        #else:
+        if snake.head.distance(part) < COLLIDE:
+            print(f"d{snake.head.distance(part)}")
+            score.writeGameOver()
+            snake.keep_running = False
+            break
 # closing  eveything
 snake.screen.exitonclick()
