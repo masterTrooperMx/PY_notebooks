@@ -24,7 +24,8 @@ while snake.keep_running:
     
     time.sleep(0.1)
     # move little snake
-    for t in reversed(snake.arr_turtles):
+    #for t in reversed(snake.arr_turtles):
+    for t in snake.arr_turtles[::-1]:
         ind = snake.arr_turtles.index(t)
         timmy = t
         if ind > 0:
