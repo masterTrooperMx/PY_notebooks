@@ -5,8 +5,15 @@ UP    =  90
 DOWN  = 270
 RIGHT = 0
 LEFT  = 180
-
-NEAR = 18
+# constant near
+NEAR  = 18
+# world constants
+WORLD_WITH   = 600
+WORLD_HEIGHT = 600
+WORLD_XPOS = WORLD_WITH/2
+WORLD_XNEG = -WORLD_XPOS
+WORLD_YPOS = WORLD_HEIGHT/2
+WORLD_YNEG = -WORLD_YPOS
 class Snake:
     def __init__(self) -> None:
         self.screen = Screen()
@@ -14,7 +21,7 @@ class Snake:
         self.keep_running = True
 
     def setupScreen(self):
-        self.screen.setup(width=600, height=600)
+        self.screen.setup(width=WORLD_WITH, height=WORLD_HEIGHT)
         self.screen.bgcolor("black")
         self.screen.title("My Snake Game")
         self.screen.tracer(0)

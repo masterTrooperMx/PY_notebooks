@@ -18,3 +18,11 @@ class Score(Turtle):
         self.clear()
         self.outcome += 1
         self.writeScore()
+
+    def writeGameOver(self):
+        self.color("red")
+        self.penup()
+        self.hideturtle()
+        self.setposition(0, 0)
+        score_str = f"Game Over!!!"
+        self.write(score_str, False, align="center", font=('Arial', 24, 'bold'))

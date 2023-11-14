@@ -37,6 +37,12 @@ while snake.keep_running:
                 food.moveFood()
                 # add score
                 score.updateScore()
+            # game over options
+            if timmy.xcor() > WORLD_XPOS or timmy.xcor() < WORLD_XNEG or timmy.ycor() > WORLD_YPOS or timmy.ycor() < WORLD_YNEG:
+                #print(f"{WORLD_XPOS}-{WORLD_XNEG}-{WORLD_YPOS}-{WORLD_YNEG} {timmy.pos()}")
+                score.writeGameOver()
+                snake.keep_running = False
+                break
 
 # closing  eveything
 snake.screen.exitonclick()
