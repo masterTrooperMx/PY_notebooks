@@ -30,6 +30,7 @@ while snake.keep_running:
             timmy_bef = snake.arr_turtles[ind-1]
             timmy.goto(timmy_bef.pos())
         else:
+            # just the head
             timmy.forward(15)
             dist = timmy.distance(food)
             if dist <= NEAR:
@@ -37,12 +38,24 @@ while snake.keep_running:
                 food.moveFood()
                 # add score
                 score.updateScore()
+                # grow snake
+                snake.growSnake()
             # game over options
             if timmy.xcor() > WORLD_XPOS or timmy.xcor() < WORLD_XNEG or timmy.ycor() > WORLD_YPOS or timmy.ycor() < WORLD_YNEG:
                 #print(f"{WORLD_XPOS}-{WORLD_XNEG}-{WORLD_YPOS}-{WORLD_YNEG} {timmy.pos()}")
                 score.writeGameOver()
                 snake.keep_running = False
                 break
-
+            # if snake bites its own tail
+            for part in snake.arr_turtles:
+                if part.pos() == timmy.pos():
+                    print(f"{part.pos()}, {timmy.pos()}")
+                    pass
+                #elif timmy.distance(part) < COLLIDE:
+                else:
+                    print(f"{timmy.distance(part)}")
+                    #score.writeGameOver()
+                    #snake.keep_running = False
+                    #break
 # closing  eveything
 snake.screen.exitonclick()

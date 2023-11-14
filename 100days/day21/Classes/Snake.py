@@ -5,8 +5,9 @@ UP    =  90
 DOWN  = 270
 RIGHT = 0
 LEFT  = 180
-# constant near
+# constants of distance
 NEAR  = 18
+COLLIDE = 10
 # world constants
 WORLD_WITH   = 600
 WORLD_HEIGHT = 600
@@ -35,6 +36,7 @@ class Snake:
             timmy.forward(20*i)
             self.arr_turtles.append(timmy)
         self.head = self.arr_turtles[0] # first turtle
+        self.tail = self.arr_turtles[-1] # last of it
 
     def turnUp(self):
         self.head.setheading(UP)
@@ -48,3 +50,11 @@ class Snake:
     def turnRight(self):
         self.head.setheading(RIGHT)
 
+    def growSnake(self):
+        timmy = Turtle(shape="square")
+        timmy.color("white")
+        timmy.penup()
+        l_timmy = self.tail
+        timmy.goto(l_timmy.position())
+        self.arr_turtles.append(timmy)
+        self.tail = self.arr_turtles[-1] # last of them
