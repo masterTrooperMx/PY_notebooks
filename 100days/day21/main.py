@@ -1,6 +1,8 @@
 from Classes.Snake import *
 from Classes.Food import *
+from Classes.Score import *
 
+score = Score()
 snake = Snake()
 # init snake
 snake.setupScreen()
@@ -34,6 +36,7 @@ while snake.keep_running:
                 #print(f"{dist} eat")
                 food.moveFood()
                 # add score
+                score.updateScore()
 
 # closing  eveything
 snake.screen.exitonclick()
