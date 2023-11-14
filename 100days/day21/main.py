@@ -1,9 +1,12 @@
 from Classes.Snake import *
+from Classes.Food import *
 
 snake = Snake()
-# init
+# init snake
 snake.setupScreen()
 snake.createSnakeBody()
+# init food
+food = Food()
 
 # just listen to events
 snake.screen.listen()
@@ -26,6 +29,11 @@ while snake.keep_running:
             timmy.goto(timmy_bef.pos())
         else:
             timmy.forward(15)
+            dist = timmy.distance(food)
+            if dist <= NEAR:
+                #print(f"{dist} eat")
+                food.moveFood()
+                # add score
 
 # closing  eveything
 snake.screen.exitonclick()

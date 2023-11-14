@@ -6,6 +6,7 @@ DOWN  = 270
 RIGHT = 0
 LEFT  = 180
 
+NEAR = 18
 class Snake:
     def __init__(self) -> None:
         self.screen = Screen()
