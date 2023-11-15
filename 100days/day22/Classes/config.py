@@ -9,3 +9,7 @@ class Pong():
     WORLD_XNEG   = -WORLD_XPOS
     WORLD_YPOS   = WOLRD_HEIGHT/2
     WORLD_YNEG   = -WORLD_YPOS
+    # turtle shape
+    Rectangle = ((-40,10),(40,10),(40,-10),(-40,-10))
+    # register shape
+    screen.register_shape('rectangle', Rectangle)
