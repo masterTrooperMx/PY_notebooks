@@ -1,5 +1,7 @@
-from Classes.Player import *
+from Classes.Score import *
 
-player1 = Player()
-print(player1)
-print(Pong.WORLD_XNEG)
+# setup world and screen
+scoreboard = Scoreboard()
+
+# closing  eveything
+screen.exitonclick()

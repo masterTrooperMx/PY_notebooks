@@ -1,5 +1,5 @@
 from Classes.config import Pong
-from turtle import Turtle, Screen
+from turtle import Turtle
 
 class Player(Turtle):
     def __init__(self, shape: str = "classic", undobuffersize: int = 1000, visible: bool = True) -> None:

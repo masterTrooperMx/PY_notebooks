@@ -1,4 +1,6 @@
 # config constants for game
+from turtle import Screen
+screen = Screen()
 class Pong():
     # world constants
     WORLD_WIDTH  = 800
