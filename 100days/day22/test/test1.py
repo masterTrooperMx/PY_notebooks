@@ -14,7 +14,18 @@ screen.bgcolor("black")
 screen.title("PONG Game")
 
 # create screen
-
+timmy = Turtle()
+timmy.color("white")
+timmy.hideturtle()
+timmy.penup()
+timmy.goto([0,WORLD_YPOS])
+timmy.pensize(5)
+timmy.right(90)
+for _ in range(20):
+    timmy.pendown()
+    timmy.forward(20)
+    timmy.penup()
+    timmy.forward(10)
 
 # closing  eveything
 screen.exitonclick()
