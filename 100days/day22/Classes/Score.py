@@ -4,10 +4,14 @@ from turtle import Turtle
 class Scoreboard(Turtle):
     def __init__(self, shape: str = "classic", undobuffersize: int = 1000, visible: bool = False) -> None:
         super().__init__(shape, undobuffersize, visible)
+        # outcomes
+        self.outcome1 = 0
+        self.outcome2 = 0
         # setup
         screen.setup(width=Pong.WORLD_WIDTH, height=Pong.WOLRD_HEIGHT)
         screen.bgcolor("black")
         screen.title("PONG Game")
+        # draw outcomes
         # create screen
         self.color("white")
         self.hideturtle()
