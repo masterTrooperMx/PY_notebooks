@@ -1,10 +1,8 @@
 from turtle import Screen, Turtle
+import random
 
 screen = Screen()
-# turtle shape
-Rectangle = ((-40,10),(40,10),(40,-10),(-40,-10))
-# register shape
-screen.register_shape('rectangle', Rectangle)
+
 # constants are in main
 WORLD_WIDTH  = 800
 WOLRD_HEIGHT = 600
@@ -20,8 +18,33 @@ screen.title("PONG Game")
 
 # create ball
 class Ball(Turtle):
-    def __init__(self, shape: str = "classic", undobuffersize: int = 1000, visible: bool = True) -> None:
+    def __init__(self, shape: str = "square", undobuffersize: int = 1000, visible: bool = True) -> None:
         super().__init__(shape, undobuffersize, visible)
+        self.color("white")
+        self.angle = -1
+        
+    def setupBall(self):
+        if self.angle < 0:
+            self.angle = random.randint(0, 89) # where to go
+        else:
+            # already existed, complementary angle
+            self.angle = 179 - self.angle
+        self.setheading(self.angle)
+        
+    def moveBall(self):
+        keep_going = True
+        self.setupBall() # turn angle
+        while keep_going:
+            (t_x, t_y) = self.pos()
+            if t_x <= WORLD_XPOS and t_x >= WORLD_XNEG and t_y <= WORLD_YPOS and t_y >= WORLD_YNEG:
+                self.forward(DELTA)
+            else:
+                self.setupBall()
+                self.forward(DELTA)
+
+ball = Ball()
+ball.moveBall()
+
 
 # closing  eveything
 screen.exitonclick()
