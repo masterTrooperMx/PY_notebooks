@@ -13,7 +13,19 @@ class Player(Turtle):
         return super().__str__() + str(f"{Pong.WORLD_WIDTH}")
     
     def turnUp(self):
-        self.goto(self.pos() + (0, Pong.DELTA))
+        # don't leave world!
+        delta_up = self.pos() + (0, Pong.DELTA)
+        if delta_up[1] <= Pong.WORLD_YPOS-45: 
+            self.goto(delta_up)
+        else:
+            pass
+            #print(self.pos()) do some noise!
         
     def turnDown(self):
-        self.goto(self.pos() + (0, -Pong.DELTA))
+        # don't leave world!
+        delta_down = self.pos() + (0, -Pong.DELTA)
+        if delta_down[1] >= Pong.WORLD_YNEG+45:
+            self.goto(delta_down)
+        else:
+            pass
+            #print(self.pos()) do some noise!!

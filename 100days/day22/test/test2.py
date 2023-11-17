@@ -28,10 +28,20 @@ class Player(Turtle):
         self.penup()
 
     def turnUp(self):
-        self.goto(self.pos() + (0, DELTA))
+        # don't leave world!
+        delta_up = self.pos() + (0, DELTA)
+        if delta_up[1] <= WORLD_YPOS-45: 
+            self.goto(delta_up)
+        else:
+            print(self.pos())
         
     def turnDown(self):
-        self.goto(self.pos() + (0, -DELTA))
+        # don't leave world!
+        delta_down = self.pos() + (0, -DELTA)
+        if delta_down[1] >= WORLD_YNEG+45:
+            self.goto(delta_down)
+        else:
+            print(self.pos())
 
 player1 = Player(WORLD_XNEG+20, 10)
 player2 = Player(WORLD_XPOS-30, -10)
