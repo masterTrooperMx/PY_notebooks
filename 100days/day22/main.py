@@ -16,10 +16,10 @@ print(vars(Pong))
 # just listen to events
 screen.listen()
 
-screen.onkey(r_paddle.turnUp, 'w')
-screen.onkey(r_paddle.turnDown, 'x')
-screen.onkey(l_paddle.turnUp, 'u')
-screen.onkey(l_paddle.turnDown, 'm')
+screen.onkey(r_paddle.turnUp, "w")
+screen.onkey(r_paddle.turnDown, "x")
+screen.onkey(l_paddle.turnUp, "Up")
+screen.onkey(l_paddle.turnDown, "Down")
 
 game_over = False
 ball.setupBall()
@@ -28,7 +28,7 @@ while not game_over:
     if ball.inWorldX() == True:
         ball.move()
         print(f"b{ball.pos()}, lf{l_paddle.pos()}, d{ball.distance(l_paddle)}, {ball.t_x}, {ball.t_y}")
-        if ball.xcor() >= 340 and abs(ball.distance(l_paddle)) < 65:
+        if ball.xcor() >= 340 and abs(ball.distance(l_paddle)) < 65 or ball.xcor() <= -340 and abs(ball.distance(r_paddle)) < 65:
             # bounce
             print("Bounce!")
             ball.t_x *= -1

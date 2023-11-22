@@ -14,7 +14,7 @@ class Player(Turtle):
     
     def turnUp(self):
         # don't leave world!
-        delta_up = self.pos() + (0, 1.5*Pong.DELTA)
+        delta_up = self.pos() + (0, 2*Pong.DELTA)
         if delta_up[1] <= Pong.WORLD_YPOS-45: 
             self.goto(delta_up)
         else:
@@ -23,7 +23,7 @@ class Player(Turtle):
         
     def turnDown(self):
         # don't leave world!
-        delta_down = self.pos() + (0, -1.5*Pong.DELTA)
+        delta_down = self.pos() + (0, -2*Pong.DELTA)
         if delta_down[1] >= Pong.WORLD_YNEG+45:
             self.goto(delta_down)
         else:
