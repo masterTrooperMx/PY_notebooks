@@ -11,6 +11,7 @@ r_paddle = Player(Pong.WORLD_XNEG+20, 10)
 l_paddle = Player(Pong.WORLD_XPOS-30, -10)
 
 ball = Ball()
+print(vars(Pong))
 
 # just listen to events
 screen.listen()
@@ -27,9 +28,12 @@ while not game_over:
     if ball.inWorldX() == True:
         ball.move()
         print(f"b{ball.pos()}, lf{l_paddle.pos()}, d{ball.distance(l_paddle)}, {ball.t_x}, {ball.t_y}")
-        if ball.xcor() >= 380 and abs(ball.distance(l_paddle)) < 60:
+        if ball.xcor() >= 340 and abs(ball.distance(l_paddle)) < 65:
             # bounce
-            ball.setupBall()
+            print("Bounce!")
+            ball.t_x *= -1
+            ball.t_y *= -1
+            ball.move()
     else:
         print("Ball out!!")
         game_over = True
