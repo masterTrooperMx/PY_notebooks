@@ -24,7 +24,7 @@ game_over = False
 ball.setupBall()
 while not game_over:
     screen.update() # smooth move
-    if ball.inWorld() == True:
+    if ball.inWorldX() == True:
         ball.move()
         print(f"b{ball.pos()}, lf{l_paddle.pos()}, d{ball.distance(l_paddle)}, {ball.t_x}, {ball.t_y}")
         if ball.xcor() >= 380 and abs(ball.distance(l_paddle)) < 60:

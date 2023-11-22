@@ -13,8 +13,14 @@ class Ball(Turtle):
         self.t_x = Pong.DELTA
         self.t_y = Pong.DELTA
         
-    def inWorld(self):
+    def inWorldY(self):
         if self.ycor() < Pong.WORLD_YPOS-1.5*Pong.DELTA and self.ycor() > Pong.WORLD_YNEG+1.5*Pong.DELTA:
+            return True
+        else:
+            return False
+        
+    def inWorldX(self):
+        if self.xcor() < Pong.WORLD_XPOS+1.5*Pong.DELTA and self.xcor() > Pong.WORLD_XNEG-1.5*Pong.DELTA:
             return True
         else:
             return False
@@ -31,8 +37,7 @@ class Ball(Turtle):
     def move(self):
         (new_x, new_y) = self.pos()
         time.sleep(0.1)
-        #if self.ycor() < Pong.WORLD_YPOS-1.5*Pong.DELTA and self.ycor() > Pong.WORLD_YNEG+1.5*Pong.DELTA:
-        if self.inWorld():
+        if self.inWorldY():
             #print(f"{Pong.WORLD_YPOS-1.5*Pong.DELTA} vs {Pong.WORLD_YNEG+1.5*Pong.DELTA}")
             self.goto(self.t_x + new_x, self.t_y + new_y)
         else:
