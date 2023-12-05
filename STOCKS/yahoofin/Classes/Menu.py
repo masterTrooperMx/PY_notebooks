@@ -1,10 +1,18 @@
+import json
 from Classes.Portfolio import *
 
 portfolio = Portfolio()
 
 class Menu():
     def __init__(self) -> None:
-        pass
+        # import values from  config file
+        with open('./conf.json') as conf_file:
+            file_contents = conf_file.read()
+        parsed_json = json.loads(file_contents)
+        symbol = []
+        for stock in parsed_json:
+            symbol.append(stock["name"])
+        portfolio.set_symbols(symbol)
 
     def do_quit(self):
         print("Nice stocks girl!!")

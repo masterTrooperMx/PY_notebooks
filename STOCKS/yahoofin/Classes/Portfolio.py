@@ -5,8 +5,8 @@ from datetime import datetime
 import os.path
 
 class Portfolio():
-    def __init__(self, start=datetime.now().strftime("%Y-%m-%d"), end=datetime(2023, 12, 31).strftime("%Y-%m-%d")) -> None:
-        self.symbols = ["GENIUS21.MX", "BIMBOA.MX", "HERDEZ.MX", "BOLSAA.MX", "IVVPESOISHRS.MX", "WALMEX.MX"]
+    def __init__(self, symbols = ['EURUSD=X', 'AUDEUR=X', 'USDGBP=X'] , start=datetime.now().strftime("%Y-%m-%d"), end=datetime(2023, 12, 31).strftime("%Y-%m-%d")) -> None:
+        self.symbols = symbols
         self.prices = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.startdate = start
         self.enddate = end
@@ -33,6 +33,9 @@ class Portfolio():
             self.portfolio_df = yf.download(tickers=self.symbols, start = start, end = end)
             print("saving data")
             self.save_csv(fname)
+
+    def set_symbols(self, symbols):
+        self.symbols = symbols
 
     def save_csv(self, fname="./data/stocks_portfolio.csv"):
         self.portfolio_df.to_csv(fname)
