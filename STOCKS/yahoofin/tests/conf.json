@@ -1,5 +1,10 @@
 [
     {
+        "stocks": 6,
+        "startdate": "2001-1-1",
+        "enddate": "2023-12-31"
+    },
+    {
         "name": "GENIUS21.MX",
         "SMA_S": [],
         "SMA_L": []

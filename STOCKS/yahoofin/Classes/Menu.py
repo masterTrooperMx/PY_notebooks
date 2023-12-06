@@ -9,10 +9,17 @@ class Menu():
         with open('./conf.json') as conf_file:
             file_contents = conf_file.read()
         parsed_json = json.loads(file_contents)
+        print("reading config file ...")
         symbol = []
         for stock in parsed_json:
-            symbol.append(stock["name"])
+            if 'name' in stock:
+                symbol.append(stock["name"])
+            else:
+                portfolio.startdate = stock["startdate"]
+                portfolio.enddate   = stock["enddate"]
         portfolio.set_symbols(symbol)
+        portfolio.check_file(portfolio.startdate, portfolio.enddate)
+        print("excuting config options")
 
     def do_quit(self):
         print("Nice stocks girl!!")
