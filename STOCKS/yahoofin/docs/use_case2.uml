@@ -1,0 +1,20 @@
+
+@startuml
+left to right direction
+actor User as u
+actor YahooFin as yf
+package Backtester {
+  usecase "Get symbols" as bt1
+  usecase "Read symbol info" as bt2
+  usecase "Update tecnical info" as bt3
+  usecase "Develop technical data" as bt4
+  usecase "Show analysis" as bt5
+}
+
+u --> bt1
+u --> bt2
+yf --> bt2
+u --> bt3
+u --> bt4
+u --> bt5
+@enduml
