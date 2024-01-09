@@ -1,4 +1,4 @@
-from Classes.Menu import Menu
+from Models.Menu import Menu
 #from yahoofinancials import YahooFinancials
 
 my_menu = Menu()

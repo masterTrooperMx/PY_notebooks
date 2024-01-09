@@ -1,5 +1,5 @@
 import json
-from Classes.Portfolio import *
+from Models.Portfolio import *
 
 portfolio = Portfolio()
 

@@ -1,4 +1,4 @@
-from Classes.SMABacktester import SMABacktester as SMA
+from Models.SMABacktester import SMABacktester as SMA
 
 symbol = ("GENIUS21.MX", "BIMBOA.MX", "HERDEZ.MX", "BOLSAA.MX", "IVVPESOISHRS.MX", "WALMEX.MX")
 smas = (20, 200)
