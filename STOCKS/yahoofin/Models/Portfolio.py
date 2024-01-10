@@ -13,23 +13,23 @@ class Portfolio():
         # check if file is from today otherwise update it
         self.check_file(start, end)
 
-    def check_file(self, start, end, fname="./data/stocks_portfolio.csv"):
-        update_create = False
+    def check_file(self, start, end, u_c = False, fname="./data/stocks_portfolio.csv"):
+        update_create = u_c
         delta = 0
-        if os.path.exists(fname) and not update_create:
+        if os.path.exists(fname) and update_create != True:
             now = datetime.now()
             now_str = now.strftime('%Y-%m-%d %H:%M')
             mtime = os.path.getmtime(filename=fname)
             timestamp = datetime.fromtimestamp(mtime)
             timestamp_str = timestamp.strftime('%Y-%m-%d %H:%M')
             delta = now - timestamp
-            print(f"Stock cvs exists: {timestamp_str}")
+            print(f"Stock cvs exists, updating: {timestamp_str}")
             if delta.days >= 1:
                 update_create = True
                 print(f"file, it is {delta.days} old")
 
         if update_create:
-            print("Updating file with new data")
+            print("Creating file with new data")
             self.portfolio_df = yf.download(tickers=self.symbols, start = start, end = end)
             print("saving data")
             self.save_csv(fname)

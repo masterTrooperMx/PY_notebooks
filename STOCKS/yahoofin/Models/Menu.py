@@ -18,7 +18,8 @@ class Menu():
                 portfolio.startdate = stock["startdate"]
                 portfolio.enddate   = stock["enddate"]
         portfolio.set_symbols(symbol)
-        portfolio.check_file(portfolio.startdate, portfolio.enddate)
+        print(portfolio.get_symbols())
+        portfolio.check_file(portfolio.startdate, portfolio.enddate, True)
         print("excuting config options")
 
     def do_quit(self):
