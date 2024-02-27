@@ -14,6 +14,7 @@ package Backtester {
 u --> bt1
 u --> bt2
 yf --> bt2
+bt1 --> bt2
 u --> bt3
 u --> bt4
 u --> bt5

@@ -18,18 +18,23 @@ class Menu():
                 portfolio.startdate = stock["startdate"]
                 portfolio.enddate   = stock["enddate"]
         portfolio.set_symbols(symbol)
-        portfolio.check_file(portfolio.startdate, portfolio.enddate)
+        portfolio.check_file(portfolio.startdate, portfolio.enddate, True)
         print("excuting config options")
 
     def do_quit(self):
         print("Nice stocks girl!!")
 
     def show_prompt(self):
-        return input("what option: symbols, graphs, analysis? ").lower()
+        return input("what option: symbols, data, graphs, analysis? ").lower()
     
     def display_symbols(self):
         print(portfolio.get_symbols())
 
+    def display_data(self):
+        symbol = input(f"what symbol: {portfolio.get_symbols()} ").upper()
+        print(f"getting info from {symbol}")
+        portfolio.portfolio_show_data(symbol)
+        
     def do_analysis(self):
         # working with df in order to have info 
         pass
@@ -44,6 +49,8 @@ class Menu():
                     follow_compute = False
                 if choice == "symbols":
                     self.display_symbols()
+                if choice == "data":
+                    self.display_data()
                 if choice == "analysis":
                     self.do_analysis()
     

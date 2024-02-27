@@ -1,8 +1,8 @@
 [
     {
-        "stocks": 6,
+        "stocks": 7,
         "startdate": "2001-1-1",
-        "enddate": "2023-12-31"
+        "enddate": "2024-2-19"
     },
     {
         "name": "GENIUS21.MX",
@@ -31,6 +31,11 @@
     },
     {
         "name":  "WALMEX.MX",
+        "SMA_S": [],
+        "SMA_L": []
+    },
+    {
+        "name":  "ANB.MX",
         "SMA_S": [],
         "SMA_L": []
     }

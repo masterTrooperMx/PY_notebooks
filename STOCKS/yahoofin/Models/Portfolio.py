@@ -11,12 +11,15 @@ class Portfolio():
         self.startdate = start
         self.enddate = end
         # check if file is from today otherwise update it
-        self.check_file(start, end)
+        self.fname = ""
+        self.check_file(start, end, True)
 
-    def check_file(self, start, end, fname="./data/stocks_portfolio.csv"):
-        update_create = False
+    def check_file(self, start, end, createF=False , fname="./data/stocks_portfolio.csv"):
+        self.fname = fname
+        update_create = createF
+        #print(f"{update_create}-{self.get_symbols()}--{self.startdate}/{self.enddate}")
         delta = 0
-        if os.path.exists(fname) and not update_create:
+        if os.path.exists(fname) and update_create != True:
             now = datetime.now()
             now_str = now.strftime('%Y-%m-%d %H:%M')
             mtime = os.path.getmtime(filename=fname)
@@ -30,20 +33,22 @@ class Portfolio():
 
         if update_create:
             print("Updating file with new data")
-            self.portfolio_df = yf.download(tickers=self.symbols, start = start, end = end)
-            print("saving data")
-            self.save_csv(fname)
+            # part of class
+            self.portfolio_df = yf.download(tickers=self.get_symbols(), start = start, end = end)
+            #print(f"getting info {self.portfolio_df.head()}")
+            print(f"saving data into {self.fname}")
+            self.save_csv(self.fname)
 
     def set_symbols(self, symbols):
         self.symbols = symbols
 
-    def save_csv(self, fname="./data/stocks_portfolio.csv"):
+    def save_csv(self, fname):
         self.portfolio_df.to_csv(fname)
 
     def get_symbols(self):
         return self.symbols
 
-    def load_csv(self):
+    def load_csv(self, symbol):
         pass
 
     def portfolio_yearly(self):
@@ -57,3 +62,16 @@ class Portfolio():
 
     def portfolio_weekly(self):
         pass
+    
+    def process_data_symbol(self):
+        if self.symbol_df:
+            self.portfolio_yearly()
+            # and the others
+        else:
+            print("Don't have data frame for symbol!!")
+    
+    def portfolio_show_data(self, symbol):
+        # symbol is just the name
+        if symbol:
+            self.symbol_df = self.portfolio_df.filter(like=symbol).filter(regex="(Close|High)")
+            print(f"{symbol} {self.symbol_df.info()}")
