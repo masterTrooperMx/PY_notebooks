@@ -14,10 +14,8 @@ class Portfolio():
         self.fname = ""
         self.check_file(start, end, True)
 
-    def check_file(self, start, end, createF=False , fname="./data/stocks_portfolio.csv"):
-        self.fname = fname
-        update_create = createF
-        #print(f"{update_create}-{self.get_symbols()}--{self.startdate}/{self.enddate}")
+    def check_file(self, start, end, fname="./data/stocks_portfolio.csv"):
+        update_create = False
         delta = 0
         if os.path.exists(fname) and update_create != True:
             now = datetime.now()
@@ -26,18 +24,16 @@ class Portfolio():
             timestamp = datetime.fromtimestamp(mtime)
             timestamp_str = timestamp.strftime('%Y-%m-%d %H:%M')
             delta = now - timestamp
-            print(f"Stock cvs exists: {timestamp_str}")
+            print(f"Stock cvs exists, updating: {timestamp_str}")
             if delta.days >= 1:
                 update_create = True
                 print(f"file, it is {delta.days} old")
 
         if update_create:
             print("Updating file with new data")
-            # part of class
-            self.portfolio_df = yf.download(tickers=self.get_symbols(), start = start, end = end)
-            #print(f"getting info {self.portfolio_df.head()}")
-            print(f"saving data into {self.fname}")
-            self.save_csv(self.fname)
+            self.portfolio_df = yf.download(tickers=self.symbols, start = start, end = end)
+            print("saving data")
+            self.save_csv(fname)
 
     def set_symbols(self, symbols):
         self.symbols = symbols
