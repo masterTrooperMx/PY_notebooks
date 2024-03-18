@@ -1,1 +1,199 @@
 Odoo code
+
+Stage is set to "New requests"
+# Available variables:
+#  - env: environment on which the action is triggered
+#  - model: model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: utility function to compare floats based on specific precision
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - _logger: _logger.info(message): logger to emit messages in server logs
+#  - UserError: exception class for raising user-facing warning messages
+#  - Command: x2many commands namespace
+# To return an action, assign: action = {...}
+# CAT-003 create Preliminary Price card in kanban view with oportunity info
+if record.name:
+    desc="%s-Preliminary Product"%record.name
+    card_info ={
+        'x_studio_product_name': record.id,
+        'x_studio_partner_id': record.partner_id.id,
+        'x_studio_user_id': record.user_id.id,
+        'x_studio_value': record.expected_revenue,
+        'x_studio_kanban_state': 'normal',
+        'x_studio_selection_field_1su_1ho8cdkmu': 'create_formula'
+    }
+    # _logger.info(str(card_info))
+    env['x_pricing'].create(card_info)
+    #raise UserError(desc+str(card_info))
+    
+    
+Stage is set to "Pricing Approved"
+# Available variables:
+#  - env: environment on which the action is triggered
+#  - model: model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: utility function to compare floats based on specific precision
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - _logger: _logger.info(message): logger to emit messages in server logs
+#  - UserError: exception class for raising user-facing warning messages
+#  - Command: x2many commands namespace
+# To return an action, assign: action = {...}
+# CAT-001 create a copy of project template when stage is set to Pricing Approved
+# by Jesus Cruz 02.27.2024
+if record.name:
+    desc="%s-Project"%record.name
+    env['project.project'].browse(8).copy({'name': desc})
+    prj_s = ''
+    l_projects = env['project.project'].search([('name', '=', 'Product Development')])
+    #l_projects = env['project.project'].search([]) # all records
+    for nproj in env['project.project'].search([('name', '=', 'Product Development')]):
+        nproj.unlink()
+    #raise UserError("Project list: %s"%(l_projects))
+    
+https://www.odoo.com/es/forum/ayuda-1/button-to-open-product-record-in-tree-view-84592
+tps://www.cybrosys.com/odoo/odoo-books/odoo-book-v15/manufacturing/bills-of-materials/
+
+x_preliminary_quotatio_line_81e9.x_studio_ingredients_list.x_studio_cuanto
+x_studio_ingredients_list
+x_studio_cuanto
+x_studio_cost_
+
+computed_total = 0
+#self.env['my.model'].browse([1, 2, 3])
+l_prods = self.env['x_preliminary_quotatio_line_81e9'].browse(x_studio_ingredients_list)
+for recs in self:
+    recs['x_studio_cost_subtotal_1'] = 10
+#    computed_total += recs['x_studio_cuanto'] * recs['x_studio_cost_']
+#if env['x_preliminary_quotatio']:
+#        record['x_studio_cost_subtotal_1'] = 10
+#    else:
+#        record['x_studio_cost_subtotal_1'] = 100
+        
+        
+{
+  "activity_calendar_event_id": false,
+  "activity_date_deadline": false,
+  "activity_exception_decoration": false,
+  "activity_exception_icon": false,
+  "activity_ids": [],
+  "activity_state": false,
+  "activity_summary": false,
+  "activity_type_icon": false,
+  "activity_type_id": false,
+  "activity_user_id": false,
+  "create_date": "2024-03-08 10:13:41",
+  "create_uid": [
+    2,
+    "Francisco Estevez"
+  ],
+  "display_name": "REF004",
+  "has_message": true,
+  "id": 16,
+  "message_attachment_count": 0,
+  "message_follower_ids": [],
+  "message_has_error": false,
+  "message_has_error_counter": 0,
+  "message_has_sms_error": false,
+  "message_ids": [
+    7923,
+    7820,
+    7819
+  ],
+  "message_is_follower": false,
+  "message_needaction": false,
+  "message_needaction_counter": 0,
+  "message_partner_ids": [],
+  "my_activity_date_deadline": false,
+  "rating_ids": [],
+  "website_message_ids": [],
+  "write_date": "2024-03-11 19:26:55",
+  "write_uid": [
+    41,
+    "Jesus Cruz"
+  ],
+  "x_active": true,
+  "x_color": 0,
+  "x_name": "REF004",
+  "x_studio_account_manager": [
+    37,
+    "Jimmy Brashares"
+  ],
+  "x_studio_bottle_color": false,
+  "x_studio_bottle_type": false,
+  "x_studio_cost_subtotal_1": 0,
+  "x_studio_cotton": false,
+  "x_studio_currency_id": false,
+  "x_studio_customer": [
+    457,
+    "Raw Supplements"
+  ],
+  "x_studio_customer_tier": "Diamond",
+  "x_studio_desiccant": true,
+  "x_studio_ingredients_list": [
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155
+  ],
+  "x_studio_kanban_state": false,
+  "x_studio_lid_color": false,
+  "x_studio_lid_type": false,
+  "x_studio_many2many_field_876_1hoeumgks": [
+    2224,
+    2227
+  ],
+  "x_studio_neckband": false,
+  "x_studio_notes": false,
+  "x_studio_one2many_field_7gq_1hoeuk2ik": [],
+  "x_studio_one2many_field_8l4_1hoen2j32": [],
+  "x_studio_opportunity_name": [
+    1992,
+    "CBUM Energy Premix"
+  ],
+  "x_studio_order_quantities_price": [
+    3,
+    4,
+    5
+  ],
+  "x_studio_packaging": false,
+  "x_studio_priority": false,
+  "x_studio_priority_1": "0",
+  "x_studio_product_type": "Powder",
+  "x_studio_quote_is_confirmed": false,
+  "x_studio_quote_status": "Draft",
+  "x_studio_related_field_5ap_1hoel97es": "Powder",
+  "x_studio_scoop": false,
+  "x_studio_sequence": 10,
+  "x_studio_stage_id": [
+    2,
+    "Create Quotation Formula"
+  ]
+}
+
+
+
