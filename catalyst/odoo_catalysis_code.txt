@@ -196,4 +196,12 @@ for recs in self:
 }
 
 
+# x_studio_total_freight = x_studio_vendor_freight_cost + x_studio_sub_total_freight
+x_studio_vendor_freight_cost, x_studio_sub_total_freight
+for rec in self:
+  rec['x_studio_total_freight'] = rec['x_studio_vendor_freight_cost'] + rec['x_studio_sub_total_freight']
 
+# x_studio_total_unit = x_studio_total_freight / x_studio_total_qty_recd
+x_studio_total_freight, x_studio_total_qty_recd
+for rec in self:
+  rec['x_studio_total_unit'] = rec['x_studio_total_freight'] / rec['x_studio_total_qty_recd']
