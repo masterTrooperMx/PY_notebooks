@@ -195,6 +195,12 @@ for recs in self:
   ]
 }
 
+# Inventory/Product calculation
+
+# x_studio_total_qty_recd = x_studio_qty_recd_wfrt + x_studio_qty_recd_wo_frt_2
+x_studio_qty_recd_wfrt, x_studio_qty_recd_wo_frt_2
+for rec in self:
+  rec['x_studio_total_qty_recd'] = rec['x_studio_qty_recd_wfrt'] + rec['x_studio_qty_recd_wo_frt_2']
 
 # x_studio_total_freight = x_studio_vendor_freight_cost + x_studio_sub_total_freight
 x_studio_vendor_freight_cost, x_studio_sub_total_freight
@@ -205,3 +211,57 @@ for rec in self:
 x_studio_total_freight, x_studio_total_qty_recd
 for rec in self:
   rec['x_studio_total_unit'] = rec['x_studio_total_freight'] / rec['x_studio_total_qty_recd']
+
+# Prliminary Quote/Configuration/Freight Configuration calculation
+x_studio_product_category
+# loop for sum
+for rec in self:
+  if rec['x_studio_product_category']:
+    category = rec['x_studio_product_category'].id
+    # search for all prods that have our category_id
+    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+    total_qty = 0
+    if len(prods_recs) > 0:
+      for prod in prods_recs:
+      if prod.mapped('x_studio_total_freight')[0] > 0:
+          total_qty += prod.mapped('x_studio_total_qty_recd')[0]
+    rec['x_studio_qty_wfrt_1'] = total_qty
+
+x_studio_product_category
+for rec in self:
+  if rec['x_studio_product_category']:
+    category = rec['x_studio_product_category'].id
+    # search for all prods that have our category_id
+    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+    total_frt = 0
+    if len(prods_recs) > 0:
+      for prod in prods_recs:
+      if prod.mapped('x_studio_total_freight')[0] > 0:
+          total_frt += prod.mapped('x_studio_total_freight')[0]
+    rec['x_studio_freight'] = total_frt
+
+x_studio_product_category
+for rec in self:
+  if rec['x_studio_product_category']:
+    category = rec['x_studio_product_category'].id
+    # search for all prods that have our category_id
+    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+    totalwo_frt = 0
+    if len(prods_recs) > 0:
+      for prod in prods_recs:
+        if prod.mapped('x_studio_total_freight')[0] == 0:
+          totalwo_frt += prod.mapped('x_studio_total_qty_recd')[0]
+    rec['x_studio_qty_wo_frt_1'] = totalwo_frt
+
+x_studio_product_category
+for rec in self:
+  if rec['x_studio_product_category']:
+    category = rec['x_studio_product_category'].id
+    # search for all prods that have our category_id
+    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+    totalto_frt = 0
+    if len(prods_recs) > 0:
+      for prod in prods_recs:
+        if prod.mapped('x_studio_total_freight')[0] == 0:
+          totalto_frt += prod.mapped('x_studio_total_freight')[0]
+    rec['x_studio_qty_wo_frt_1'] = totalto_frt
