@@ -267,15 +267,17 @@ for rec in self:
     rec['x_studio_qty_wo_frt_1'] = totalto_frt
 
 # search for product by part number
-x_studio_part_number
+x_studio_part_number, x_studio_cuanto, x_studio_some_name
 # price kg
 for rec in self:
   if rec['x_studio_part_number']:
     prod_rec = self.env['product.template'].search([('default_code','ilike', rec['x_studio_part_number'])], limit=1)
     prod_categ = prod_rec.mapped('categ_id')[0]
+    rec['x_studio_cuanto'] = prod_categ.id
+    rec['x_studio_some_name'] = prod_categ.complete_name
     #[("categ_id", "ilike", "Component")]
     price_used = 0
-    if "Component" in prod_categ.name:
+    if "Component" in prod_categ.complete_name:
       # use  standard_price /g
       price_used = 1000 * prod_rec.mapped('standard_price')[0]
     rec['x_studio_price'] = price_used
