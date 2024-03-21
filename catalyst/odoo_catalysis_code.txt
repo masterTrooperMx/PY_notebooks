@@ -288,15 +288,20 @@ for rec in self:
     rec['x_studio_price'] = price_used
 
 # cost per unit
-x_studio_text_some, x_studio_cuanto, x_studio_opportunity_name
+x_studio_text_some, x_studio_cuanto
 # x_studio_cost = (x_studio_actual_input/1000000)*x_studio_price*self['product.template'].x_studio_serves_per_bottlebag_bags_2
 # serving per bottle, input_mg_serv, price_kg
 # lets get opportunity name and get serves_per_bottle
 #serves_per_bottle = 
+rec_info = self.env['x_preliminary_quotatio'].search([])
+# get first id
+oppt_id = rec_info.mapped('x_studio_opportunity_name')[0]
 for rec in self:
-  rec_info = rec['x_studio_opportunity_name']
-  #rec_lead_crm = self.env['crm.lead'].search([('name', '=', rec_info)], limit=1)
-  #rec['x_studio_text_some'] = rec_lead_crm.mapped('name')
-  rec['x_studio_text_some'] = rec_info[1]
+  rec_lead_crm = self.env['crm.lead'].search([('id', '=', oppt_id[0])], limit=1)
+  rec['x_studio_text_some'] = rec_lead_crm.mapped('name')
+  #rec['x_studio_text_some'] = str(opportunity)
+  #rec['x_studio_multi_text'] = str(opportunity)
   #rec['x_studio_cuanto'] = rec_lead_crm.mapped('x_studio_serves_per_bottlebag_bags_2')
-  rec['x_studio_cuanto'] = rec_info[0]
+  #rec['x_studio_cuanto'] = opportunity
+
+crm.lead
