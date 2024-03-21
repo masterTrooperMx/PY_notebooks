@@ -288,20 +288,32 @@ for rec in self:
     rec['x_studio_price'] = price_used
 
 # cost per unit
-x_studio_text_some, x_studio_cuanto
-# x_studio_cost = (x_studio_actual_input/1000000)*x_studio_price*self['product.template'].x_studio_serves_per_bottlebag_bags_2
+# in a separate _field x_studio_crm_lead_multine_text
+seleccion_rec = self.env['x_preliminary_quotatio'].search([])
+seleccion = seleccion_rec.mapped('x_studio_opportunity_name')[0]
+for rec in self:
+    rec['x_studio_crm_lead_multine_text'] = str(seleccion.id)
+
+x_studio_actual_input, x_studio_price
+#x_studio_text_some, x_studio_cuanto
+# x_studio_cost = (x_studio_actual_input/1000000)*x_studio_price*self['crm.lead'].x_studio_serves_per_bottlebag_bags_2
 # serving per bottle, input_mg_serv, price_kg
 # lets get opportunity name and get serves_per_bottle
-#serves_per_bottle = 
-rec_info = self.env['x_preliminary_quotatio'].search([])
-# get first id
-oppt_id = rec_info.mapped('x_studio_opportunity_name')[0]
+# widget must be selection
+selection_rec = self.env['x_preliminary_quotatio'].search([])
+selection = selection_rec.mapped('x_studio_opportunity_name')[0]
 for rec in self:
-  rec_lead_crm = self.env['crm.lead'].search([('id', '=', oppt_id[0])], limit=1)
-  rec['x_studio_text_some'] = rec_lead_crm.mapped('name')
-  #rec['x_studio_text_some'] = str(opportunity)
-  #rec['x_studio_multi_text'] = str(opportunity)
-  #rec['x_studio_cuanto'] = rec_lead_crm.mapped('x_studio_serves_per_bottlebag_bags_2')
-  #rec['x_studio_cuanto'] = opportunity
+    #rec['x_studio_cuanto'] = seleccion.id
+    rec_lead_crm = self.env['crm.lead'].search([('id', '=', selection.id)], limit=1)
+    #rec['x_studio_cuanto'] = rec_lead_crm.mapped('x_studio_serves_per_bottlebag_bags_2')[0]
+    serves_per_bottle = rec_lead_crm.mapped('x_studio_serves_per_bottlebag_bags_2')[0]
+    rec['x_studio_cost'] = (rec['x_studio_actual_input']/1000000) * rec['x_studio_price'] * serves_per_bottle
 
 crm.lead
+x_preliminary_quotatio.x_studio_opportunity_name
+
+#seleccion = self._fields['x_studio_opportunity_name'].selection  
+seleccion = self._fields['x_studio_opportunity_name']
+for rec in self:
+    rec['x_studio_selection_crmlead'] = seleccion
+
