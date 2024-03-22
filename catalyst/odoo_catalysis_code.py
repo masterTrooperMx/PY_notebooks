@@ -217,7 +217,7 @@ x_studio_total_freight, x_studio_total_qty_recd
 for rec in self:
   rec['x_studio_total_unit'] = rec['x_studio_total_freight'] / rec['x_studio_total_qty_recd']
 
-# Prliminary Quote/Configuration/Freight Configuration calculation
+# Preliminary Quote/Configuration/Freight Configuration calculation
 x_studio_product_category
 # loop for sum
 for rec in self:
@@ -271,6 +271,28 @@ for rec in self:
           totalto_frt += prod.mapped('x_studio_total_freight')[0]
     rec['x_studio_qty_wo_frt_1'] = totalto_frt
 
+# Preliminary Quote
+# Total Input (mg/serv)
+# x_studio_total_input_mgserv = sum(x_studio_actual_input)
+x_studio_ingredients_list, x_studio_ingredients_list.x_studio_actual_input
+
+for rec in self:
+    subtotal = 0
+    for line in rec['x_studio_ingredients_list']:
+        subtotal += line['x_studio_actual_input']
+    rec['x_studio_total_input_mgserv'] = subtotal
+
+# Total Cost (per unit)
+# x_studio_total_cost_per_unit = sum(x_studio_cost)
+x_studio_ingredients_list, x_studio_ingredients_list.x_studio_cost
+
+for rec in self:
+    subtotal = 0
+    for line in rec['x_studio_ingredients_list']:
+        subtotal += line['x_studio_cost']
+    rec['x_studio_total_cost_per_unit'] = subtotal
+
+# Preliminary Quote/Ingredients
 # search for product by part number
 x_studio_part_number, x_studio_cuanto, x_studio_some_name
 # price kg
@@ -340,3 +362,18 @@ for rec in self:
       rec['x_studio_freightkg'] = freight_unit_total
     else:
       rec['x_studio_freightkg'] = rec['x_studio_price'] * freight_val
+
+# freight per unit
+# x_studio_freightunit = (x_studio_actual_input/1000000) * x_studio_freightkg * crm.lead['x_studio_serves_per_bottlebag_bags_2']
+x_studio_actual_input, x_studio_freightkg
+
+# widget must be selection
+selection_rec = self.env['x_preliminary_quotatio'].search([])
+selection = selection_rec.mapped('x_studio_opportunity_name')[0]
+rec_lead_crm = self.env['crm.lead'].search([('id', '=', selection.id)], limit=1)
+serves_per_bottle = rec_lead_crm.mapped('x_studio_serves_per_bottlebag_bags_2')[0]
+for rec in self:
+  rec['x_studio_freightunit'] = (rec['x_studio_actual_input'] / 1000000) * rec['x_studio_freightkg'] * serves_per_bottle
+
+# cost %
+# x_studio_cost_ = x_studio_cost / 
