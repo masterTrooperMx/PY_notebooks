@@ -317,3 +317,26 @@ seleccion = self._fields['x_studio_opportunity_name']
 for rec in self:
     rec['x_studio_selection_crmlead'] = seleccion
 
+# freight per kg
+x_studio_text_some, x_studio_price, x_studio_part_number, x_studio_product_category
+
+# get oportunity id and then freight field
+selection_rec = self.env['x_preliminary_quotatio'].search([])
+selection = selection_rec.mapped('x_studio_opportunity_name')[0]
+# get badge
+rec_lead_crm = self.env['crm.lead'].search([('id', '=', selection.id)], limit=1)
+freight = rec_lead_crm.mapped('x_studio_freight_1')
+# get value selected
+freight_val = rec_lead_crm.mapped('x_studio_freight_value_selected')
+for rec in self:
+    # get product category
+    prod_rec = self.env['product.template'].search([('default_code','ilike', rec['x_studio_part_number'])], limit=1)
+    prod_categ_id = prod_rec.mapped('categ_id')[0]
+    #rec['x_studio_text_some'] = str(freight[0])
+    if freight_val > 0:
+      # look for category_id in Freight Config Table
+      freight_rec = self.env['x_freight_configuratio'].search([('x_studio_product_category.id', '=', prod_categ_id)])[0]
+      freight_unit_total = freight_rec.mapped('x_studio_unit_total')
+      rec['x_studio_freightkg'] = freight_unit_total
+    else:
+      rec['x_studio_freightkg'] = rec['x_studio_price'] * freight_val
