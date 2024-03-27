@@ -1,6 +1,17 @@
 Odoo code
 
 Stage is set to "New requests"
+                if prod.mapped('x_studio_total_freight')[0] > 0:
+                    total_qty += prod.mapped('x_studio_total_qty_recd')[0]
+        rec['x_studio_qty_wfrt_1'] = total_qty
+
+x_studio_product_category
+for rec in self:
+  if rec['x_studio_product_category']:
+    category = rec['x_studio_product_category'].id
+    # search for all prods that have our category_id
+    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+    total_frt = 0
 # Available variables:
 #  - env: environment on which the action is triggered
 #  - model: model of the record on which the action is triggered; is a void recordset
@@ -231,18 +242,21 @@ for rec in self:
         if prod.mapped('x_studio_total_freight')[0] > 0:
           total_qty += prod.mapped('x_studio_total_qty_recd')[0]
     rec['x_studio_qty_wfrt_1'] = total_qty
-
-x_studio_product_category
+# change
 for rec in self:
-  if rec['x_studio_product_category']:
-    category = rec['x_studio_product_category'].id
-    # search for all prods that have our category_id
-    prods_recs = self.env['product.template'].search([('categ_id','=', category)])
-    total_frt = 0
-    if len(prods_recs) > 0:
-      for prod in prods_recs:
-        if prod.mapped('x_studio_total_freight')[0] > 0:
-          total_frt += prod.mapped('x_studio_total_freight')[0]
+    if rec['x_studio_product_category']:
+        #category = rec['x_studio_product_category'].id
+        suffix = rec['x_name']
+        # search for all prods that have our category_id
+        #prods_recs = self.env['product.template'].search([('categ_id','=', category)])
+        prods_recs = self.env['product.template'].search([('x_studio_freight_config_1','=', suffix)])
+        total_qty = 0
+        if len(prods_recs) > 0:
+            for prod in prods_recs:
+              if len(prods_recs) > 0:
+                for prod in prods_recs:
+                  if prod.mapped('x_studio_total_freight')[0] > 0:
+                    total_frt += prod.mapped('x_studio_total_freight')[0]
     rec['x_studio_freight'] = total_frt
 
 x_studio_product_category
@@ -292,16 +306,40 @@ for rec in self:
         subtotal += line['x_studio_cost']
     rec['x_studio_total_cost_per_unit'] = subtotal
 
+# Total freight (per unit)
+# x_studio_total_freight_per_unit_1 = sum(x_studio_freightunit)
+x_studio_ingredients_list, x_studio_ingredients_list.x_studio_freightunit
+
+for rec in self:
+    subtotal = 0
+    for line in rec['x_studio_ingredients_list']:
+        subtotal += line['x_studio_freightunit']
+    rec['x_studio_total_freight_per_unit_1'] = subtotal
+
 # Preliminary Quote/Ingredients
+    
+# Formula %
+# x_studio_formula_ = x_studio_actual_input / sum(x_preliminary_quotatio.x_studio_total_input_mgserv)
+x_studio_actual_input
+
+#preliminary_quotatio_recs = self.env['x_preliminary_quotatio'].search([('x_studio_total_input_mgserv', 'ilike', value)], limit=1)
+#mini_rec = self.env['est.weight'].search([])
+#mini = mini_rec.mapped('min')
+preliminary_quotatio_recs = self.env['x_preliminary_quotatio'].search([])
+total_input = preliminary_quotatio_recs.mapped('x_studio_total_input_mgserv')[0]
+for record in self:
+    record['x_studio_formula_'] = record['x_studio_actual_input']/total_input
+
 # search for product by part number
+# x_studio_price = "product.template".standard_price == "Component"? 1000 * "product.template".standard_price : 0
 x_studio_part_number, x_studio_cuanto, x_studio_some_name
 # price kg
 for rec in self:
   if rec['x_studio_part_number']:
     prod_rec = self.env['product.template'].search([('default_code','ilike', rec['x_studio_part_number'])], limit=1)
     prod_categ = prod_rec.mapped('categ_id')[0]
-    rec['x_studio_cuanto'] = prod_categ.id
-    rec['x_studio_text_some'] = prod_categ.complete_name
+    #rec['x_studio_cuanto'] = prod_categ.id
+    #rec['x_studio_text_some'] = prod_categ.complete_name
     #[("categ_id", "ilike", "Component")]
     price_used = 0
     if "Component" in prod_categ.complete_name:
@@ -318,7 +356,7 @@ for rec in self:
 
 x_studio_actual_input, x_studio_price
 #x_studio_text_some, x_studio_cuanto
-# x_studio_cost = (x_studio_actual_input/1000000)*x_studio_price*self['crm.lead'].x_studio_serves_per_bottlebag_bags_2
+# x_studio_cost = (x_studio_actual_input/1000000)*x_studio_price*'crm.lead'.x_studio_serves_per_bottlebag_bags_2
 # serving per bottle, input_mg_serv, price_kg
 # lets get opportunity name and get serves_per_bottle
 # widget must be selection
@@ -340,6 +378,7 @@ for rec in self:
     rec['x_studio_selection_crmlead'] = seleccion
 
 # freight per kg
+# x_studio_freightkg = "crm.lead".x_studio_freight_value_selected" > 0? "crm.lead".x_studio_unit_total : x_studio_price * crm.lead".x_studio_freight_value_selected"
 x_studio_text_some, x_studio_price, x_studio_part_number, x_studio_product_category
 
 # get oportunity id and then freight field
@@ -364,7 +403,7 @@ for rec in self:
       rec['x_studio_freightkg'] = rec['x_studio_price'] * freight_val
 
 # freight per unit
-# x_studio_freightunit = (x_studio_actual_input/1000000) * x_studio_freightkg * crm.lead['x_studio_serves_per_bottlebag_bags_2']
+# x_studio_freightunit = (x_studio_actual_input/1000000) * x_studio_freightkg * "crm.lead"."x_studio_serves_per_bottlebag_bags_2
 x_studio_actual_input, x_studio_freightkg
 
 # widget must be selection
@@ -376,4 +415,13 @@ for rec in self:
   rec['x_studio_freightunit'] = (rec['x_studio_actual_input'] / 1000000) * rec['x_studio_freightkg'] * serves_per_bottle
 
 # cost %
-# x_studio_cost_ = x_studio_cost / 
+# x_studio_cost_ = x_studio_cost / sum(x_preliminary_quotatio.x_studio_total_cost_per_unit)
+x_studio_cost
+
+preliminary_quotatio_recs = self.env['x_preliminary_quotatio'].search([])
+total_cost = preliminary_quotatio_recs.mapped('x_studio_total_cost_per_unit')[0]
+for record in self:
+    if total_cost > 0:
+        record['x_studio_cost_'] = record['x_studio_cost']/total_cost
+    else:
+        record['x_studio_cost_'] = 0
