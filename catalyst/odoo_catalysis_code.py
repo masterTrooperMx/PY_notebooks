@@ -316,6 +316,15 @@ for rec in self:
         subtotal += line['x_studio_freightunit']
     rec['x_studio_total_freight_per_unit_1'] = subtotal
 
+# Total formula %
+# x_studio_total_formula = sum(x_studio_formula_)
+x_studio_ingredients_list, x_studio_ingredients_list.x_studio_formula_
+
+for rec in self:
+    subtotal = 0
+    for line in rec['x_studio_ingredients_list']:
+        subtotal += line['x_studio_formula_']
+    rec['x_studio_total_formula'] = subtotal
 # Preliminary Quote/Ingredients
     
 # Formula %
