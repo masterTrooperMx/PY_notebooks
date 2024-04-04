@@ -1,0 +1,23 @@
+@startuml
+proposed_quote.general_info .. crm.lead
+proposed_quote.product_info .. crm.lead
+proposed_quote.weight .. crm.lead
+product.template .. proposed_quote.existing_materials
+product.template .. proposed_quote.new_materials
+product.template .. preliminary.x_freight_config
+preliminary.x_freight_config .. product.template
+preliminary.x_freight_config .. proposed_quote.Material_freight
+proposed_quote.total_materials .. preliminary.x_preliminary_quotatio
+proposed_quote.Material_cost ..product.template
+proposed_quote.Material_freight ..product.template
+
+note "general results per Sufix" as N1
+note "particular vals per Product" as N2
+proposed_quote.Material_freight ..N1
+preliminary.x_freight_config ..N2
+@enduml
+
+
+@startuml
+
+@enduml

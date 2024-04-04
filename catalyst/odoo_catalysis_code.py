@@ -226,7 +226,7 @@ for rec in self:
 # x_studio_total_unit = x_studio_total_freight / x_studio_total_qty_recd
 x_studio_total_freight, x_studio_total_qty_recd
 for rec in self:
-  rec['x_studio_total_unit'] = rec['x_studio_total_freight'] / rec['x_studio_total_qty_recd']
+  rec['x_studio_total_unit'] = 0 if rec['x_studio_total_qty_recd'] == 0 else rec['x_studio_total_freight'] / rec['x_studio_total_qty_recd']
 
 # Preliminary Quote/Configuration/Freight Configuration calculation
 x_studio_product_category
