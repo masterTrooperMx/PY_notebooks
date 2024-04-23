@@ -38,6 +38,7 @@ class Menu():
         
     def do_analysis(self):
         # working with df in order to have info 
+        
         pass
 
     def do_menu(self):
