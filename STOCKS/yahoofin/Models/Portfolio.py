@@ -52,7 +52,11 @@ class Portfolio():
         pass
 
     def portfolio_yearly(self):
-        pass
+        # show all years from symbol
+        symbol_df = pd.to_datetime(self.symbol_df.index)
+        #print(symbol_df.year.unique())
+        l_symbol_years = list(symbol_df.year.unique())
+        print(f"Years to count: {l_symbol_years} for symbol")
 
     def portfolio_monthly(self):
         pass
@@ -73,5 +77,9 @@ class Portfolio():
     def portfolio_show_data(self, symbol):
         # symbol is just the name
         if symbol:
+            # creating symbol to analysis into class
             self.symbol_df = self.portfolio_df.filter(like=symbol).filter(regex="(Close|High)")
             print(f"{symbol} {self.symbol_df.info()}")
+            self.process_data_symbol()
+        else:
+            print("No symbol passed ... nothing to show")
