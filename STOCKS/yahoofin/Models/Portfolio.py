@@ -53,10 +53,13 @@ class Portfolio():
 
     def portfolio_yearly(self):
         # show all years from symbol
-        symbol_df = pd.to_datetime(self.symbol_df.index)
+        sy_df = pd.to_datetime(self.symbol_df.index)
         #print(symbol_df.year.unique())
-        l_symbol_years = list(symbol_df.year.unique())
-        print(f"Years to count: {l_symbol_years} for symbol")
+        l_symbol_years = list(sy_df.year.unique())
+        #print(f"Years to count: {l_symbol_years} for symbol")
+        # as part of timeseries characteristics index can be string
+        year = input(f"what year: {l_symbol_years} ").upper()
+        print(self.symbol_df[year])
 
     def portfolio_monthly(self):
         pass
@@ -68,7 +71,7 @@ class Portfolio():
         pass
     
     def process_data_symbol(self):
-        if self.symbol_df:
+        if not self.symbol_df.empty:
             self.portfolio_yearly()
             # and the others
         else:
@@ -76,10 +79,10 @@ class Portfolio():
     
     def portfolio_show_data(self, symbol):
         # symbol is just the name
-        if symbol:
+        if symbol != "":
             # creating symbol to analysis into class
             self.symbol_df = self.portfolio_df.filter(like=symbol).filter(regex="(Close|High)")
-            print(f"{symbol} {self.symbol_df.info()}")
+            print(f"SHOWING {symbol} {self.symbol_df.info()}")
             self.process_data_symbol()
         else:
             print("No symbol passed ... nothing to show")
