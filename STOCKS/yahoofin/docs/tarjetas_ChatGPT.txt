@@ -1,0 +1,6 @@
+Subject: Stock portfolio
+Task : List a serie of stock tickers within a table
+Instructions :
+List a serie of stocks tickers regarding consumer industry with good earnings up to now.
+Do the same for industrials and communications industries as well.
+Print actual stock value and determine if is up or under the max value.
