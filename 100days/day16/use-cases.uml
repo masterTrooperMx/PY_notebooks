@@ -13,4 +13,7 @@ rectangle vendor_machine {
 	(deliver beverage) <-- coffee_machine
 
 }
-@enduml
+@enduml 
+
+An4huac*25!
+
